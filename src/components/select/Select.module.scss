@@ -1,0 +1,75 @@
+.selectContainer {
+    width: 400px;
+    position: relative;
+    .selectedBoxContainer {
+        width: 100%;
+        border: 2px solid #C7D0D6;
+        border-radius: 0.7rem;
+        padding: 1.9rem 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #fff;
+        cursor: pointer;
+        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+        .selectedText {
+            color: #2A323F;
+            font-size: 1.5rem;
+        }
+        .chevron {
+            width: 14px;
+        }
+        .oppositeChevron {
+            rotate: 180deg;
+        }
+    }
+    .optionsOuterContainer {
+        width: 100%;
+        border: 2px solid #C7D0D6;
+        border-radius: 0.7rem;
+        height: 275px;
+        overflow-y: auto;
+        padding: 0.25rem 1rem;
+        background-color: #fff;
+        margin-top: 0.35rem;
+        position: absolute;
+        left: 0;
+        z-index: 9999;
+        &::-webkit-scrollbar {
+            width: 1em;
+        }
+         
+        &::-webkit-scrollbar-track {
+            -webkit-box-shadow: inset 0 0 6px #3E5270;
+            border-radius: 0.7rem;
+        }
+         
+        &::-webkit-scrollbar-thumb {
+          background-color: rgb(93, 99, 122);
+          border-radius: 0.7rem;
+        }
+        ul {
+            list-style: none;
+            li {
+                padding: 0.75rem 0;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                cursor: default;
+                &:not(:last-child) {
+                    border-bottom: 1px solid #E0E7EC;
+                }
+                .optionName {
+                    font-size: 1.5rem;
+                    color: #2A323F;
+                }
+                .checkbox {
+                    height: 18px;
+                    width: 18px;
+                    border: 1px solid #C7D0D6;
+                    border-radius: 50%;
+                }
+            }
+        }
+    }
+}
