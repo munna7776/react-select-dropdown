@@ -1,4 +1,5 @@
 export type SelectProps = {
     selectOuterContainerClassName?: string;
-    optionsList: string[]
+    optionsList: string[],
+    isMultiSelect?: boolean
 }
