@@ -14,3 +14,9 @@ type SingleSelectProps = {
 export type SelectProps = {
     optionsList: string[]
 } & ( MultiSelectProps | SingleSelectProps )
+
+export type OptionProps = {
+    option: string;
+    isOptionSelected: boolean;
+    onOptionClick: (option: string) => void
+}
