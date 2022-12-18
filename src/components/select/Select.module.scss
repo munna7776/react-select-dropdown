@@ -10,11 +10,31 @@
     justify-content: space-between;
     align-items: center;
     background-color: #fff;
+    max-height: 150px;
+    overflow-y: auto;
     cursor: pointer;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     .selectedText {
       color: #2a323f;
       font-size: 1.5rem;
+    }
+    .multiSelectedOption {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      .option {
+        border: 1px solid #c7d0d6;
+        border-radius: 0.7rem;
+        font-size: 1.5rem;
+        padding: 0.5rem 0.75rem;
+        background-color: #E6E6E6;
+        color: #2a323f;
+        img {
+          width: 9px;
+          height: 9px;
+          margin-left: 1.25rem;
+        }
+      }
     }
     .chevron {
       width: 14px;
@@ -35,27 +55,14 @@
     position: absolute;
     left: 0;
     z-index: 9999;
-    &::-webkit-scrollbar {
-      width: 1em;
-    }
-
-    &::-webkit-scrollbar-track {
-      -webkit-box-shadow: inset 0 0 6px #3e5270;
-      border-radius: 0.7rem;
-    }
-
-    &::-webkit-scrollbar-thumb {
-      background-color: rgb(93, 99, 122);
-      border-radius: 0.7rem;
-    }
     ul {
       list-style: none;
-      li {
+      .list {
         padding: 0.75rem 0;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        cursor: default;
+        cursor: pointer;
         &:not(:last-child) {
           border-bottom: 1px solid #e0e7ec;
         }
@@ -68,33 +75,68 @@
           width: 18px;
           border: 1px solid #c7d0d6;
           border-radius: 50%;
-          // #FEBC70 checked checkbox backgroud-color
-        }
-        .checked {
-          width: 18px;
-          height: 18px;
-          border-radius: 50%;
-          background-color: #febc70;
           display: grid;
           place-content: center;
+        }
+        // .hoveredCheckbox {
+        //   &::before {
+        //     content: "";
+        //     width: 9px;
+        //     height: 9px;
+        //     clip-path: polygon( 14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62% );
+        //     transform: scale(1);
+        //     transform-origin: bottom left;
+        //     transition: 120ms transform ease-in-out;
+        //     background-color: #c7d0d6;
+        //   }
+        // }
+        // .checked {
+        //   width: 18px;
+        //   height: 18px;
+        //   border: 0;
+        //   border-radius: 50%;
+        //   background-color: #febc70;
+        //   display: grid;
+        //   place-content: center;
+        //   &::before {
+        //     content: "";
+        //     width: 9px;
+        //     height: 9px;
+        //     clip-path: polygon( 14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62% );
+        //     transform: scale(1);
+        //     transform-origin: bottom left;
+        //     transition: 120ms transform ease-in-out;
+        //     background-color: #fff;
+        //   }
+        // }
+      }
+      .activeList {
+        .checkbox {
+          background-color: #febc70;
+          border: 0;
           &::before {
             content: "";
             width: 9px;
             height: 9px;
-            clip-path: polygon(
-              14% 44%,
-              0 65%,
-              50% 100%,
-              100% 16%,
-              80% 0%,
-              43% 62%
-            );
+            clip-path: polygon( 14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62% );
             transform: scale(1);
             transform-origin: bottom left;
             transition: 120ms transform ease-in-out;
-            // box-shadow: inset 1em 1em var(--form-control-color);
-            /* Windows High Contrast Mode */
             background-color: #fff;
+        }
+        }
+      }
+      .hoveredList {
+        .checkbox {
+          &::before {
+            content: "";
+            width: 9px;
+            height: 9px;
+            clip-path: polygon( 14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62% );
+            transform: scale(1);
+            transform-origin: bottom left;
+            transition: 120ms transform ease-in-out;
+            background-color: #c7d0d6;
           }
         }
       }

@@ -1,25 +1,48 @@
 import React, { useRef, useState } from "react";
-import { chevronDown } from "@/assets";
+import { chevronDown, cross } from "@/assets";
 import styles from "./Select.module.scss";
 import { SelectProps } from "./select-types";
 import { useOnClickOutside } from "@/hooks";
 
-const Select: React.FC<SelectProps> = ({
-  selectOuterContainerClassName = "",
+const Select = ({
   optionsList = [],
-  isMultiSelect = false
-}) => { 
+  value,
+  onChange,
+  isMultiSelect
+}: SelectProps) => { 
 
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState('')
+  const [hoveredIndex, setHoveredIndex] = useState<number|null>(null)
   const selectContainerRef = useRef(null)
 
 
   useOnClickOutside(selectContainerRef, () => setIsOpen(false))
 
-  const onSingleSelectOptionClick = (value: string) => {
-    setSelectedOption(value)
-    setIsOpen(false)
+  const onOptionClick = (option: string) => {
+    if(!isMultiSelect && option !== value) {
+      onChange(option)
+    }
+    if(isMultiSelect) {
+      if(!value.includes(option)) {
+        onChange([...value,option])
+      } else {
+        const newValue = value.filter(val => val !== option)
+        onChange(newValue)
+      }
+    }
+  }
+
+  const getListClassName = (option: string, index: number) => {
+    let classnames = [styles.list]
+    const selected = isMultiSelect ? value.includes(option) : value === option
+    if( selected ){
+      classnames.push(styles.activeList)
+    }
+    if(hoveredIndex === index && !selected) {
+      classnames.push(styles.hoveredList)
+    }
+
+    return classnames.join(" ")
   }
 
   const chevronImageClassName = `${styles.chevron} ${
@@ -32,9 +55,20 @@ const Select: React.FC<SelectProps> = ({
         className={styles.selectedBoxContainer}
         onClick={() => setIsOpen(true)}
       >
-        <div className={styles.selectedText}>
-          { selectedOption ?  selectedOption : 'Select Country...'}
-        </div>
+        { (!value || value.length === 0) && <div className={styles.selectedText} >Select Country...</div> }
+        { !isMultiSelect && value && <div className={styles.selectedText}> { value } </div> }
+        { isMultiSelect && value.length > 0 && (
+          <div className={styles.multiSelectedOption}>
+            {
+              value.map((val) => (
+                <div key={val} className={styles.option}>
+                  <span>{val}</span>
+                  <img src={cross} alt="cross" onClick={()=>onOptionClick(val)} />
+                </div>
+              ))
+            }
+          </div>
+        ) }
         <img
           className={chevronImageClassName}
           src={chevronDown}
@@ -46,9 +80,9 @@ const Select: React.FC<SelectProps> = ({
           <ul>
             {optionsList.map((option, index) => {
               return (
-                <li key={index} onClick={()=>onSingleSelectOptionClick(option)} >
+                <li key={index} className={getListClassName(option,index)} onClick={()=>onOptionClick(option)} onMouseEnter={()=>setHoveredIndex(index)} onMouseLeave={()=>setHoveredIndex(null)} >
                   <div className={styles.optionName}>{option}</div>
-                  <div className={ selectedOption === option ? styles.checked : styles.checkbox}></div>
+                  <div className={ styles.checkbox }></div>
                 </li>
               );
             })}
