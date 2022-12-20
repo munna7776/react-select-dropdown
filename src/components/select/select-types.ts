@@ -18,5 +18,5 @@ export type SelectProps = {
 export type OptionProps = {
     option: string;
     isOptionSelected: boolean;
-    onOptionClick: (option: string) => void
+    onOptionClick: (option: string) => void;
 }

@@ -17,10 +17,10 @@ const App = () => {
         <h2>Single Select</h2>
         <Select optionsList={countryList} value={value} onChange={onChange} />
       </div>
-      <div className={styles.innerContainer}>
+      {/* <div className={styles.innerContainer}>
         <h2>Multiple Select</h2>
         <Select optionsList={countryList} value={newValue} onChange={(val: string[]) => setNewValue(val)} isMultiSelect />
-      </div>
+      </div> */}
     </div>
   )
 }

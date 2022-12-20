@@ -41,7 +41,7 @@ const Select = ({
           <div className={styles.selectedText}>Select Country...</div>
         )}
         {!isMultiSelect && value && (
-          <div className={styles.selectedText}> {value} </div>
+          <div aria-label="selected-value" className={styles.selectedText}> {value} </div>
         )}
         {isMultiSelect && value.length > 0 && (
           <div className={styles.multiSelectedOption}>

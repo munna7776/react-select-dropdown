@@ -2,7 +2,7 @@ import { useState } from "react";
 import {OptionProps} from "./select-types"
 import styles from "./Select.module.scss"
 
-const Option = ({option, onOptionClick, isOptionSelected}: OptionProps) => {
+const Option = ({option, onOptionClick, isOptionSelected = false}: OptionProps) => {
 
   const [hovered, setHovered] = useState(false)
 
