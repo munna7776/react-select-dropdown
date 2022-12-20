@@ -41,12 +41,12 @@ const Select = ({
           <div className={styles.selectedText}>Select Country...</div>
         )}
         {!isMultiSelect && value && (
-          <div aria-label="selected-value" className={styles.selectedText}> {value} </div>
+          <div className={styles.selectedText}> {value} </div>
         )}
         {isMultiSelect && value.length > 0 && (
           <div className={styles.multiSelectedOption}>
             {value.map((val) => (
-              <div key={val} className={styles.option}>
+              <div role="button" key={val} className={styles.option}>
                 <span>{val}</span>
                 <img src={cross} alt="cross" onClick={() => onOptionClick(val)} />
               </div>

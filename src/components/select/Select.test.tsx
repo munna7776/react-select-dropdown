@@ -74,7 +74,40 @@ describe("Select", ()=>{
 
         })
     })
-    // describe("Multiple Select", ()=>{
-        
-    // })
+    describe("Multiple Select", ()=>{
+        test("on any option click, the option should be visible in the select box", async()=>{
+            userEvent.setup()
+            const onChangeMockFunction = vi.fn()
+            const { rerender } = render(<Select isMultiSelect {...multipleSelectProps} onChange={onChangeMockFunction} />)
+            const selectContainer = screen.getByRole("listbox")
+            await userEvent.click(selectContainer)
+
+            const listElements = screen.getAllByRole("listitem")
+            // clicking on the first option
+            await userEvent.click(listElements[0])
+            expect(onChangeMockFunction).toHaveBeenCalledWith(["Afghanistan"])
+            expect(onChangeMockFunction).toHaveBeenCalledTimes(1)
+
+            rerender(<Select isMultiSelect {...multipleSelectProps} value={["Afghanistan"]} onChange={onChangeMockFunction} />)
+
+            // clicking on the second option
+            await userEvent.click(listElements[1])
+            expect(onChangeMockFunction).toHaveBeenCalledWith(["Afghanistan", "Albania"])
+            expect(onChangeMockFunction).toHaveBeenCalledTimes(2)
+
+            rerender(<Select isMultiSelect {...multipleSelectProps} value={["Afghanistan","Albania"]} onChange={onChangeMockFunction} />)
+
+            const selectedOptions = screen.getAllByRole("button")
+            expect(selectedOptions).toHaveLength(2)
+            
+            // if selected option Afghanistan is clicked , it will not be in the select box
+            await userEvent.click(listElements[0])
+            expect(onChangeMockFunction).toHaveBeenCalledWith(["Albania"])
+            expect(onChangeMockFunction).toHaveBeenCalledTimes(3)
+
+            rerender(<Select isMultiSelect {...multipleSelectProps} value={["Albania"]} onChange={onChangeMockFunction} />)
+            const optionSelected = screen.getByRole("button")
+            expect(optionSelected.firstChild).toHaveTextContent("Albania")
+        })
+    })
 })
