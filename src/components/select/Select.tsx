@@ -36,7 +36,7 @@ const Select = ({
 
   return (
     <div className={styles.selectContainer} ref={selectContainerRef}>
-      <div className={styles.selectedBoxContainer} onClick={() => setIsOpen(true)} >
+      <div role="listbox" className={styles.selectedBoxContainer} onClick={() => setIsOpen(true)} >
         {value.length === 0 && (
           <div className={styles.selectedText}>Select Country...</div>
         )}
